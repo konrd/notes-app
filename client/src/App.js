@@ -13,16 +13,19 @@ const App = () => {
 
     useEffect(() => {
         fetchNotes();
+
     }, []);
 
     const fetchNotes = async () => {
-        const result = await fetch(`/api/notes/list`, {method: 'POST'})
-            .catch(error => {
-                throw new Error(error);
-            });
 
-        const json = await result.json();
-        setNotes(json);
+        try {
+            const result = await fetch(`/api/notes/list`, {method: 'POST'});
+            const json = await result.json();
+            setNotes(json);
+
+        } catch(err) {
+            console.log(err);
+        }
     };
 
     const handleModal = () => {
